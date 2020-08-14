@@ -11,6 +11,9 @@ object Modules {
     const val featureUserAccountImpl = ":feature-user-account-impl"
     const val featureUserAccountApi = ":feature-user-account-api"
 
+    const val featureNewsFeedImpl = ":feature_news_feed_impl"
+    const val featureNewsFeedApi = ":feature_news_feed_api"
+
     //datasource
     const val dataSourceImpl = ":datasource-impl"
     const val dataSourceApi = ":datasource-api"

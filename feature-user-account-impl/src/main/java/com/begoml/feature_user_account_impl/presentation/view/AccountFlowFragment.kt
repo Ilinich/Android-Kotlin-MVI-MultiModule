@@ -2,6 +2,7 @@ package com.begoml.feature_user_account_impl.presentation.view
 
 import android.os.Bundle
 import android.view.View
+import com.begoml.feature_user_account_impl.di.AccountFlowCoordinator
 import com.begoml.feature_user_account_impl.di.components.UserAccountFlowComponent
 import com.begoml.feature_user_account_impl.navigation.FlowCoordinator
 import com.begoml.presentation.di.DaggerComponentListener
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class AccountFlowFragment : FlowFragment(), DaggerComponentListener<UserAccountFlowComponent> {
 
     @Inject
+    @field:[AccountFlowCoordinator]
     lateinit var flowCoordinator: FlowCoordinator
 
     override fun onCreate(savedInstanceState: Bundle?) {

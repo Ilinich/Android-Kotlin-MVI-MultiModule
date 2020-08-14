@@ -1,7 +1,8 @@
 package com.begoml.feature_user_account_impl.di.components
 
+import com.begoml.feature_user_account_api.di.UserAccountProvider
 import com.begoml.feature_user_account_impl.di.deps.FeatureUserAccountDependencies
-import com.begoml.feature_user_account_impl.di.modules.FlowModule
+import com.begoml.feature_user_account_impl.di.modules.AccountFlowModule
 import com.begoml.feature_user_account_impl.presentation.view.AccountFlowFragment
 import com.begoml.presentation.di.FeatureNavigationModule
 import com.begoml.presentation.exception.InitComponentException
@@ -9,12 +10,12 @@ import dagger.Component
 
 @Component(
     modules = [
-        FlowModule::class,
+        AccountFlowModule::class,
         FeatureNavigationModule::class
     ],
     dependencies = [FeatureUserAccountDependencies::class]
 )
-interface UserAccountFlowComponent {
+interface UserAccountFlowComponent : UserAccountProvider {
 
     fun inject(fragment: AccountFlowFragment)
 

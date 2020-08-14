@@ -4,6 +4,8 @@ include(
     Modules.tools,
     Modules.featureUserAccountImpl,
     Modules.featureUserAccountApi,
+    Modules.featureNewsFeedImpl,
+    Modules.featureNewsFeedApi,
     Modules.coreUi,
     Modules.commonApi,
     Modules.dataSourceImpl,
