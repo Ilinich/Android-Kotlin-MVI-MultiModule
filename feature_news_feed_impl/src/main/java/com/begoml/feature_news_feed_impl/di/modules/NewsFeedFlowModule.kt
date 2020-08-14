@@ -1,6 +1,8 @@
 package com.begoml.feature_news_feed_impl.di.modules
 
 import com.begoml.feature_news_feed_impl.data.NewsFeedRepositoryImpl
+import com.begoml.feature_news_feed_impl.data.datasource.LocalNewsFeedDataSource
+import com.begoml.feature_news_feed_impl.data.datasource.LocalNewsFeedDataSourceImpl
 import com.begoml.feature_news_feed_impl.di.NewsFeedFlowCoordinator
 import com.begoml.feature_news_feed_impl.domain.NewsFeedRepository
 import com.begoml.feature_news_feed_impl.navigation.FlowCoordinator
@@ -17,4 +19,7 @@ interface NewsFeedFlowModule {
 
     @Binds
     fun bindsNewsFeedRepository(newsFeedRepository: NewsFeedRepositoryImpl): NewsFeedRepository
+
+    @Binds
+    fun bindsLocalNewsFeedDataSource(localNewsFeedDataSource: LocalNewsFeedDataSourceImpl): LocalNewsFeedDataSource
 }
