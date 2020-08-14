@@ -5,4 +5,6 @@ interface AppFlowCoordinator {
     fun startApp()
 
     fun finishFeature()
+
+    fun goToUserAccountFeature()
 }

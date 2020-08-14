@@ -6,10 +6,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.begoml.feature_news_feed_impl.domain.GetNewsUseCase
+import com.begoml.feature_news_feed_impl.domain.IsAuthorizedUseCase
 import javax.inject.Inject
 
 class NewsFeedViewModelFactory @Inject constructor(
     private val getNewsUseCase: GetNewsUseCase,
+    private val isAuthorizedUseCase: IsAuthorizedUseCase,
     fragment: Fragment,
     private val reducer: ReducerImpl,
     private val postProcessor: PostProcessorImpl,
@@ -26,6 +28,7 @@ class NewsFeedViewModelFactory @Inject constructor(
             reducer = reducer,
             actor = ActorImpl(
                 getNewsUseCase = getNewsUseCase,
+                isAuthorizedUseCase = isAuthorizedUseCase,
                 savedStateHandle = handle
             ),
             postProcessor = postProcessor,

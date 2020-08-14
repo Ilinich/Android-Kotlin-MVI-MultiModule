@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.begoml.feature_news_feed_impl.R
+import com.begoml.feature_news_feed_impl.di.NewsFeedFlowCoordinator
 import com.begoml.feature_news_feed_impl.di.component.DaggerNewsFeedComponent
 import com.begoml.feature_news_feed_impl.di.component.NewsFeedFlowComponent
+import com.begoml.feature_news_feed_impl.navigation.FlowCoordinator
 import com.begoml.feature_news_feed_impl.presentation.news.*
 import com.begoml.presentation.mvi.initializeViewStateWatcher
 import kotlinx.android.synthetic.main.news_feed_fragment.*
@@ -20,6 +22,10 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragment) {
 
     @Inject
     lateinit var factory: NewsFeedViewModelFactory
+
+    @Inject
+    @field:[NewsFeedFlowCoordinator]
+    lateinit var flowCoordinator: FlowCoordinator
 
     private val viewModel: NewsViewModel by lazy {
         ViewModelProvider({ viewModelStore }, factory).get(NewsViewModel::class.java)
@@ -70,7 +76,7 @@ class NewsFeedFragment : Fragment(R.layout.news_feed_fragment) {
                 event?.let {
                     when (it) {
                         is News.GoToNewsDetails -> {
-                            // todo:  go to news details screen
+                            flowCoordinator.goToUserAccount()
                         }
                     }
                 }

@@ -19,4 +19,9 @@ class AppFlowCoordinatorImpl @Inject constructor(
     override fun finishFeature() {
         globalRouter.exit()
     }
+
+    override fun goToUserAccountFeature() {
+        val screen = screenCreator.userAccountScreen
+        globalRouter.replaceScreen(screen)
+    }
 }

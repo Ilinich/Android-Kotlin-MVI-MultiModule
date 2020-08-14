@@ -18,6 +18,10 @@ class NewsFeedFlowCoordinatorImpl @Inject constructor(
         flowRouter.newRootScreen(Screens.NewsFeed)
     }
 
+    override fun goToUserAccount() {
+        appFlowCoordinator.goToUserAccountFeature()
+    }
+
     fun finishFeature() {
         proxyInjector.clearNewsFeedFeature()
         appFlowCoordinator.finishFeature()
@@ -28,6 +32,7 @@ class NewsFeedFlowCoordinatorImpl @Inject constructor(
 interface FlowCoordinator {
 
     fun setLaunchScreen()
+    fun goToUserAccount()
 }
 
 sealed class Screens : SupportAppScreen() {

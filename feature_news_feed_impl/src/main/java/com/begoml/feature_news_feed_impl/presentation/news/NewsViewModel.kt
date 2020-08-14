@@ -2,6 +2,7 @@ package com.begoml.feature_news_feed_impl.presentation.news
 
 import androidx.lifecycle.SavedStateHandle
 import com.begoml.feature_news_feed_impl.domain.GetNewsUseCase
+import com.begoml.feature_news_feed_impl.domain.IsAuthorizedUseCase
 import com.begoml.feature_news_feed_impl.domain.NewsModel
 import com.begoml.feature_news_feed_impl.presentation.news.NewsViewModel.Companion.SAVED_STATE_KEY_NEWS
 import com.begoml.presentation.mvi.*
@@ -57,7 +58,8 @@ class ReducerImpl @Inject constructor() : Reducer<ViewState, Effect> {
 
 class ActorImpl constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val getNewsUseCase: GetNewsUseCase
+    private val getNewsUseCase: GetNewsUseCase,
+    private val isAuthorizedUseCase: IsAuthorizedUseCase
 ) : Actor<ViewState, Command, Effect> {
 
     override fun invoke(state: ViewState, command: Command, viewModelScope: CoroutineScope, sendEffect: (effect: Effect) -> Unit) {
@@ -75,7 +77,17 @@ class ActorImpl constructor(
                 sendEffect(Effect.StateUpdated(command.newsList))
             }
             is Command.NewsModelClicked -> {
-                sendEffect(Effect.NewsModelClicked(command.newsModel))
+                isAuthorizedUseCase(viewModelScope, viewModelScope, UseCase.None) {
+                    it.handleResults(
+                        {
+                            sendEffect(Effect.StoppedLoading)
+                        }, { isAuth ->
+                            if (isAuth) {
+                                sendEffect(Effect.NewsModelClicked(command.newsModel))
+                            }
+                        }
+                    )
+                }
             }
         }
     }

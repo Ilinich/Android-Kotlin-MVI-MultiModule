@@ -6,4 +6,6 @@ import com.begoml.tools.errors.Failure
 
 interface UserAccountRepository {
     suspend fun getAccount(): ResultWrapper<Failure, Account>
+
+    fun isAuthorized(): ResultWrapper<Failure, Boolean>
 }

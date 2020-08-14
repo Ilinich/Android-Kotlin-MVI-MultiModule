@@ -11,4 +11,8 @@ class UserAccountRepositoryImpl @Inject constructor() : UserAccountRepository {
     override suspend fun getAccount(): ResultWrapper<Failure, Account> {
         return ResultWrapper.Success(Account(1))
     }
+
+    override fun isAuthorized(): ResultWrapper<Failure, Boolean> {
+        return ResultWrapper.Success(true)
+    }
 }
