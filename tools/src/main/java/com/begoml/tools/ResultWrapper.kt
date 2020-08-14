@@ -29,6 +29,7 @@ fun <T, L, R> ResultWrapper<L, R>.flatMap(fn: (R) -> ResultWrapper<L, T>): Resul
 
 fun <T, L, R> ResultWrapper<L, R>.map(fn: (R) -> (T)): ResultWrapper<L, T> = this.flatMap(fn.c(::success))
 
+
 fun <L, R, F> ResultWrapper<F, R>.mapResult(success: (R) -> L): ResultWrapper<F, L> {
     return when (this) {
         is Error -> this

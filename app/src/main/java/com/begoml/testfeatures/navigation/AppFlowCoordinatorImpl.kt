@@ -12,7 +12,7 @@ class AppFlowCoordinatorImpl @Inject constructor(
 ) : AppFlowCoordinator {
 
     override fun startApp() {
-        val screen = screenCreator.userAccountScreen
+        val screen = screenCreator.newsFeedScreen
         globalRouter.newRootScreen(screen)
     }
 

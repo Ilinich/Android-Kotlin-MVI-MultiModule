@@ -22,13 +22,20 @@ dependencies {
     implementation(project(Modules.commonApi))
 
     implementation(Deps.Jetbrains.Kotlin.StdLib.Jdk7)
-    implementation(Deps.AndroidX.AppCompat.AppCompat)
+    api(Deps.AndroidX.AppCompat.AppCompat)
+    api(Deps.AndroidX.RecyclerView.RecyclerView)
 
     implementation(Deps.Google.ArchComponents.Lifecycle.Extensions)
+
+    implementation(Deps.Jetbrains.Kotlinx.Coroutines.AndroidCoroutines)
 
     implementation(Deps.Navigation.Cicerone.Cicerone)
 
     implementation(Deps.Javax.Inject.Inject)
+
+    implementation(Deps.AndroidX.Lifecycle.Savedstate)
+    implementation(Deps.AndroidX.Lifecycle.LifecycleExtensions)
+    implementation(Deps.AndroidX.Lifecycle.LifecycleViewmodelKts)
 
     implementation(Deps.Google.DaggerGroup.Dagger)
     kapt(Deps.Google.DaggerGroup.DaggerCompiler)

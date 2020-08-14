@@ -13,6 +13,10 @@ android {
         versionCode = Release.versionCode
         versionName = Release.versionName
     }
+
+    androidExtensions {
+        isExperimental = true
+    }
 }
 
 dependencies {
@@ -27,6 +31,10 @@ dependencies {
 
     implementation(Deps.Jetbrains.Kotlin.StdLib.Jdk7)
     implementation(Deps.AndroidX.AppCompat.AppCompat)
+
+    implementation(Deps.AndroidX.Lifecycle.Savedstate)
+    implementation(Deps.AndroidX.Lifecycle.LifecycleExtensions)
+    implementation(Deps.AndroidX.Lifecycle.LifecycleViewmodelKts)
 
     implementation(Deps.Jetbrains.Kotlinx.Coroutines.AndroidCoroutines)
 

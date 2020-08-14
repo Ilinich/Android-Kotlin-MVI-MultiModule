@@ -83,6 +83,36 @@ object Deps {
                 version = "1.1.3"
             )
         }
+
+        object Lifecycle : Group(name = "androidx.lifecycle") {
+
+            object Savedstate : Dependency(
+                group = Lifecycle,
+                name = "lifecycle-viewmodel-savedstate",
+                version = "2.2.0"
+            )
+
+            object LifecycleExtensions : Dependency(
+                group = Lifecycle,
+                name = "lifecycle-extensions",
+                version = "2.2.0"
+            )
+
+            object LifecycleRuntimeKts : Dependency(
+                group = Lifecycle,
+                name = "lifecycle-runtime-ktx",
+                version = "2.2.0-alpha01"
+            )
+
+            object LifecycleViewmodelKts : Dependency(
+                group = Lifecycle,
+                name = "lifecycle-viewmodel-ktx",
+                version = "2.1.0-beta01"
+            )
+
+            //
+        }
+
     }
 
     object Google {

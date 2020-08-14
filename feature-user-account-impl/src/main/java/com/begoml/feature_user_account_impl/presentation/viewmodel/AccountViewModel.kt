@@ -2,6 +2,7 @@ package com.begoml.feature_user_account_impl.presentation.viewmodel
 
 import com.begoml.presentation.exception.NotImplementedException
 import com.begoml.presentation.mvi.*
+import kotlinx.coroutines.CoroutineScope
 
 class AccountViewModel : MviViewModel<ViewState, Event, Command, Effect, News>(
     viewState = ViewState(),
@@ -30,7 +31,7 @@ class ReducerImpl : Reducer<ViewState, Effect> {
 
 class ActorImpl : Actor<ViewState, Command, Effect> {
 
-    override fun invoke(state: ViewState, command: Command, sendEffect: (effect: Effect) -> Unit) {
+    override fun invoke(state: ViewState, command: Command, viewModelScope: CoroutineScope, sendEffect: (effect: Effect) -> Unit) {
         when (command) {
 
             Command.StartLoadData -> {

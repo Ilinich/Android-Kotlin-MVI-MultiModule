@@ -3,12 +3,14 @@ package com.begoml.presentation.mvi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * intermediary between Model and View that decides how to handle Events,
  * supply State updates, and new News
  */
-abstract class MviViewModel<ViewState : Any, UiEvent : Any, Command : Any, Effect : Any, News : Any>(
+abstract class MviViewModel<ViewState, UiEvent, Command, Effect, News>(
     viewState: ViewState,
     private val eventHandler: EventHandler<UiEvent, Command>,
     private val actor: Actor<ViewState, Command, Effect>,
@@ -66,13 +68,13 @@ abstract class MviViewModel<ViewState : Any, UiEvent : Any, Command : Any, Effec
      *
      * @param event - ui intent
      */
-    open fun dispatchEvent(event: UiEvent) {
+    fun dispatchEvent(event: UiEvent) {
         val command = eventHandler(event)
         nextCommand(command)
     }
 
     private fun nextCommand(command: Command) {
-        actor(state.state(), command) { effect ->
+        actor(state.state(), command, viewModelScope) { effect ->
             nextEffect(effect)
         }
     }
@@ -88,8 +90,9 @@ abstract class MviViewModel<ViewState : Any, UiEvent : Any, Command : Any, Effec
         }
 
         newsPublisher?.let { newsPublisher ->
-            val news = newsPublisher(state.state(), effect)
-            nextNews(news)
+            newsPublisher(state.state(), effect)?.let { news ->
+                nextNews(news)
+            }
         }
     }
 
@@ -102,17 +105,16 @@ abstract class MviViewModel<ViewState : Any, UiEvent : Any, Command : Any, Effec
     }
 }
 
-private fun <T : Any> LiveData<T>.state() = value!!
+private fun <T> LiveData<T>.state() = value!!
 
 typealias EventHandler<Event, Command> = (event: Event) -> Command
 
-typealias Actor<ViewState, Command, Effect> = (state: ViewState, command: Command, sendEffect: (effect: Effect) -> Unit) -> Unit
+typealias Actor<ViewState, Command, Effect> = (state: ViewState, command: Command, viewModelScope: CoroutineScope, sendEffect: (effect: Effect) -> Unit) -> Unit
 
 typealias Reducer<ViewState, Effect> = (state: ViewState, effect: Effect) -> ViewState
 
-typealias NewsPublisher<ViewState, Effect, News> = (state: ViewState, effect: Effect) -> News
+typealias NewsPublisher<ViewState, Effect, News> = (state: ViewState, effect: Effect) -> News?
 
 typealias PostProcessor<ViewState, Effect, Command> = (state: ViewState, effect: Effect) -> Command?
 
 typealias Bootstrapper<Command> = (sendCommand: (command: Command) -> Unit) -> Unit
-

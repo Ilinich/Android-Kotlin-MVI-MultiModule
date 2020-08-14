@@ -2,6 +2,7 @@ package com.begoml.feature_news_feed_impl.di.component
 
 import com.begoml.feature_news_feed_impl.di.deps.FeatureNewsFeedDependencies
 import com.begoml.feature_news_feed_impl.di.modules.NewsFeedFlowModule
+import com.begoml.feature_news_feed_impl.domain.GetNewsUseCase
 import com.begoml.feature_news_feed_impl.presentation.view.NewsFeedFlowFragment
 import com.begoml.presentation.di.FeatureNavigationModule
 import com.begoml.presentation.exception.InitComponentException
@@ -14,7 +15,7 @@ import dagger.Component
     ],
     dependencies = [FeatureNewsFeedDependencies::class]
 )
-interface NewsFeedFlowComponent {
+interface NewsFeedFlowComponent : NewsFeedFlowComponentProvider {
 
     fun inject(fragment: NewsFeedFlowFragment)
 
@@ -36,4 +37,9 @@ interface NewsFeedFlowComponent {
             component = null
         }
     }
+}
+
+interface NewsFeedFlowComponentProvider {
+
+    fun provideGetNewsUseCase(): GetNewsUseCase
 }
