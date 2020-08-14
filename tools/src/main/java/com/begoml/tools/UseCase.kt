@@ -30,4 +30,6 @@ abstract class UseCase<Result, in Params> where Result : Any {
     }
 
     object None
+
+
 }
